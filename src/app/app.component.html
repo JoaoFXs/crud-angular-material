@@ -1,8 +1,12 @@
-<mat-toolbar color="primary">
+<mat-toolbar>
   <span>Cadastro de Clientes</span>
   <span class="spacer"></span>
-  <a>Formulário: </a>
-  <a>Consulta: </a>
+  <a routerLink="/cadastro"><!-- Utilização do routerLink junto com app routes-->
+    <mat-icon fontIcon="feed"></mat-icon>
+    Formulário </a>
+  <a routerLink="/consulta"><!-- Utilização do routerLink junto com app routes-->
+      <mat-icon fontIcon="search"></mat-icon>
+      Consulta </a>
 </mat-toolbar>
 <!-- Utilizar para que tudo que estiver em app.route.ts aparecer aqui quando selecionado na url-->
 <router-outlet></router-outlet>
