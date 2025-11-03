@@ -8,6 +8,7 @@ import { MatIcon } from "@angular/material/icon";
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule} from "@angular/material/button";
 import { Cliente } from './cliente';
+import { ClienteService } from '../_shared/cliente.service'
 @Component({
   selector: 'app-cadastro',
   imports: [FlexLayoutModule, MatCardModule, FormsModule, MatFormFieldModule, MatInputModule, MatIcon, MatIconModule, MatButtonModule],
@@ -15,9 +16,13 @@ import { Cliente } from './cliente';
   styleUrl: './cadastro.component.scss'
 })
 export class CadastroComponent {
+  
     cliente: Cliente = Cliente.newCliente();
-
+    constructor(private service: ClienteService){
+      
+    }
     public salvar(){
+      this.service.salvar(this.cliente);
       console.log("Dados Cliente: ", this.cliente);
     }
 
