@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { MatCardModule } from "@angular/material/card"
 import {FormsModule} from "@angular/forms"
@@ -9,18 +9,39 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule} from "@angular/material/button";
 import { Cliente } from './cliente';
 import { ClienteService } from '../_shared/cliente.service'
+import { ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-cadastro',
   imports: [FlexLayoutModule, MatCardModule, FormsModule, MatFormFieldModule, MatInputModule, MatIcon, MatIconModule, MatButtonModule],
   templateUrl: './cadastro.component.html',
   styleUrl: './cadastro.component.scss'
 })
-export class CadastroComponent {
+export class CadastroComponent implements OnInit{
   
     cliente: Cliente = Cliente.newCliente();
-    constructor(private service: ClienteService){
+    atualizando: boolean = false;
+    constructor(
+      private service: ClienteService,
+      private route: ActivatedRoute){
       
     }
+
+    ngOnInit(): void {
+      // A propriedade queryParamMap é um Observable que emite um mapa de todos os parâmetros de consulta (query params) presentes na URL (a parte depois do ?, como ?id=123).
+        this.route.queryParamMap.subscribe((query: any) => {
+          const params = query['params'];
+          const id = params['id'];
+          console.log("Params: ",params);
+          if(id){
+            let clienteEncontrado = this.service.pesquisarPorId(id);
+            if(clienteEncontrado){
+              this.atualizando = true;
+              this.cliente = clienteEncontrado;
+            }
+          }
+        })
+    }
+
     public salvar(){
       this.service.salvar(this.cliente);
       this.cliente = Cliente.newCliente();

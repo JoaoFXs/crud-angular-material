@@ -36,4 +36,9 @@ export class ClienteService {
     return clientes.filter(cliente => cliente.nome?.indexOf(nomeBusca) !== -1);
   }
 
+  pesquisarPorId(id: string): Cliente | undefined {
+    const clientes = this.obterStorage();
+    return clientes.find(cliente => cliente.id === id);
+  }
+
 }
