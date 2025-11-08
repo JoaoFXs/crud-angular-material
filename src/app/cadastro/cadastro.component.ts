@@ -23,6 +23,7 @@ export class CadastroComponent {
     }
     public salvar(){
       this.service.salvar(this.cliente);
+      this.cliente = Cliente.newCliente();
       console.log("Dados Cliente: ", this.cliente);
     }
 
