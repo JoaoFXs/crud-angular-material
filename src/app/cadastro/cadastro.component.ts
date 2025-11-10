@@ -9,7 +9,7 @@ import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule} from "@angular/material/button";
 import { Cliente } from './cliente';
 import { ClienteService } from '../_shared/cliente.service'
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-cadastro',
   imports: [FlexLayoutModule, MatCardModule, FormsModule, MatFormFieldModule, MatInputModule, MatIcon, MatIconModule, MatButtonModule],
@@ -22,7 +22,8 @@ export class CadastroComponent implements OnInit{
     atualizando: boolean = false;
     constructor(
       private service: ClienteService,
-      private route: ActivatedRoute){
+      private route: ActivatedRoute,
+      private router: Router){
       
     }
 
@@ -43,9 +44,16 @@ export class CadastroComponent implements OnInit{
     }
 
     public salvar(){
-      this.service.salvar(this.cliente);
-      this.cliente = Cliente.newCliente();
-      console.log("Dados Cliente: ", this.cliente);
+      if(!this.atualizando){
+        this.service.salvar(this.cliente);
+        this.cliente = Cliente.newCliente();
+        console.log("Dados Cliente: ", this.cliente);
+      }else{
+        this.service.atualizar(this.cliente);
+        this.router.navigate(['/consulta']);
+        this.atualizando = false;
+      }
+      
     }
 
 }

@@ -41,4 +41,10 @@ export class ClienteService {
     return clientes.find(cliente => cliente.id === id);
   }
 
+  atualizar(cliente: Cliente){
+    const clientes = this.obterStorage();
+    const index = clientes.findIndex(c => c.id === cliente.id);
+    clientes[index] = cliente;
+    localStorage.setItem(ClienteService.REPO_CLIENTES, JSON.stringify(clientes));
+  }
 }
