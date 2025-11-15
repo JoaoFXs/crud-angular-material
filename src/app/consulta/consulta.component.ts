@@ -10,6 +10,7 @@ import { ClienteService } from '../_shared/cliente.service';
 import { Cliente } from '../cadastro/cliente';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-consulta',
   imports: [
@@ -22,6 +23,8 @@ import { Router } from '@angular/router';
     MatButtonModule,
     CommonModule
   ],
+
+  standalone: true,
   templateUrl: './consulta.component.html',
   styleUrl: './consulta.component.scss'
 })
